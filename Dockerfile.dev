@@ -1,0 +1,17 @@
+FROM node:22-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Copy package metadata and install dependencies inside container
+COPY package.json ./
+RUN npm install
+
+# Copy all source files into container
+COPY . .
+
+# Expose CRA default port
+EXPOSE 3000
+
+# Start the development server
+CMD ["npm", "start"]
