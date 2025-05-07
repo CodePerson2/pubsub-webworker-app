@@ -48,3 +48,52 @@ export async function readAllTasks() {
     req.onerror = () => reject(req.error);
   });
 }
+
+/**
+ * Clear all records from the 'tasks' store in AppCache, preserving the DB/schema.
+ */
+export async function clearDB() {
+  const db = await openDB();
+  const tx = db.transaction(STORE_NAME, 'readwrite');
+  const store = tx.objectStore(STORE_NAME);
+
+  // 1. Grab all keys
+  const keysRequest = store.getAllKeys();
+
+  return new Promise((resolve, reject) => {
+    keysRequest.onsuccess = () => {
+      const keys = keysRequest.result;
+      if (keys.length === 0) {
+        console.log(`No records to delete in "${STORE_NAME}".`);
+      } else {
+        // 2. Delete each record by key
+        for (const key of keys) {
+          store.delete(key);
+        }
+      }
+
+      // 3. Wait for the transaction to finish
+      tx.oncomplete = () => {
+        console.log(`✅ Deleted ${keys.length} record(s) from "${STORE_NAME}"`);
+        db.close();
+        resolve();
+      };
+      tx.onerror = () => {
+        console.error(`❌ Transaction error while deleting records:`, tx.error);
+        db.close();
+        reject(tx.error);
+      };
+      tx.onabort = () => {
+        console.warn(`⚠️ Transaction aborted while deleting records`);
+        db.close();
+        reject(tx.error);
+      };
+    };
+
+    keysRequest.onerror = () => {
+      console.error(`❌ Failed to retrieve keys from "${STORE_NAME}":`, keysRequest.error);
+      db.close();
+      reject(keysRequest.error);
+    };
+  });
+}

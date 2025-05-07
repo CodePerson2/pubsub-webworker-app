@@ -1,0 +1,120 @@
+.task-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.clear-db-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.clear-db-button:hover {
+  background-color: #c82333;
+}
+
+.task-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.task-controls select,
+.task-controls input,
+.task-controls button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-controls button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.task-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.active-tasks {
+  margin-bottom: 30px;
+}
+
+.active-tasks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.results {
+  margin-top: 30px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.result-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.result-header h3 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.result-header small {
+  color: #666;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #666;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.delete-button:hover {
+  color: #FFF;
+}
+
+.result-content {
+  margin-top: 10px;
+}
+
+.result-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+} 

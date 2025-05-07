@@ -6,6 +6,18 @@ const initialState = {
   running: []     // UUIDs currently running (max 3)
 };
 
+const prepareInputs = (inputs, type) => {
+  if (type === 'imageToGreyScale' && inputs instanceof File) {
+    return {
+      name: inputs.name,
+      size: inputs.size,
+      type: inputs.type,
+      lastModified: inputs.lastModified
+    };
+  }
+  return inputs;
+};
+
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
@@ -17,7 +29,16 @@ const tasksSlice = createSlice({
     },
     taskQueued: (state, action) => {
       const { uuid, inputs, type, timestamp } = action.payload;
-      state.byId[uuid] = { inputs, type, status: 'queued', progress: 0, result: null, error: null, timestamp };
+      state.byId[uuid] = { 
+        uuid,  // Add uuid as a property in the task object
+        inputs, 
+        type, 
+        status: 'queued', 
+        progress: 0, 
+        result: null, 
+        error: null, 
+        timestamp 
+      };
       state.queue.push(uuid);
     },
     taskRunning: (state, action) => {
