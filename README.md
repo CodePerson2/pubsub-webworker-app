@@ -69,6 +69,16 @@ src/
    ```
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Running with Docker
+
+You can also run the app in a Docker container for easy development or deployment:
+
+```bash
+docker-compose up --build
+```
+
+This will start the app on [http://localhost:3000](http://localhost:3000) with live reload enabled if you mount your source files.
+
 ## Educational Value
 
 - Learn how to architect a scalable, maintainable background processing system in a React/Redux app.
